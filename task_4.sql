@@ -1,18 +1,14 @@
+USE alx_book_store;
 
-
-
-    -- Script to display books table structure without prohibited keywords
 SELECT 
-    COLUMN_NAME AS 'Field',
-    COLUMN_TYPE AS 'Type',
-    CASE WHEN IS_NULLABLE = 'YES' THEN 'YES' ELSE 'NO' END AS 'Null',
-    COLUMN_KEY AS 'Key',
-    COLUMN_DEFAULT AS 'Default',
-    EXTRA AS 'Extra'
+    COLUMN_NAME,
+    COLUMN_TYPE,
+    IS_NULLABLE,
+    COLUMN_KEY,
+    COLUMN_DEFAULT,
+    EXTRA
 FROM 
-    INFORMATION_SCHEMA.COLUMNS 
+    INFORMATION_SCHEMA.COLUMNS
 WHERE 
-    TABLE_SCHEMA = DATABASE() 
-    AND TABLE_NAME = 'books'
-ORDER BY 
-    ORDINAL_POSITION;
+    TABLE_SCHEMA = 'alx_book_store'
+    AND TABLE_NAME = 'books';
