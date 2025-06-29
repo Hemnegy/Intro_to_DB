@@ -1,56 +1,44 @@
--- SQL script to create tables for alx_book_store database
+-- Create tables for alx_book_store database
 USE alx_book_store;
 
 -- Authors table
-CREATE TABLE IF NOT EXISTS authors (
-    author_id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    country VARCHAR(50),
-    PRIMARY KEY (author_id)
-);
+CREATE TABLE IF NOT EXISTS Authors (
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    author_name VARCHAR(215) NOT NULL
+) ENGINE=InnoDB;
 
 -- Books table
-CREATE TABLE IF NOT EXISTS books (
-    book_id INT NOT NULL AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS Books (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(130) NOT NULL,
     author_id INT NOT NULL,
-    price DECIMAL(10,2) NOT NULL,
-    publication_year INT,
-    stock_quantity INT NOT NULL DEFAULT 0,
-    PRIMARY KEY (book_id),
-    FOREIGN KEY (author_id) REFERENCES authors(author_id)
-);
+    price DOUBLE NOT NULL,
+    publication_date DATE,
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id)
+) ENGINE=InnoDB;
 
 -- Customers table
-CREATE TABLE IF NOT EXISTS customers (
-    customer_id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    address TEXT,
-    phone VARCHAR(20),
-    PRIMARY KEY (customer_id),
-    UNIQUE (email)
-);
+CREATE TABLE IF NOT EXISTS Customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(215) NOT NULL,
+    email VARCHAR(215) NOT NULL,
+    address TEXT
+) ENGINE=InnoDB;
 
 -- Orders table
-CREATE TABLE IF NOT EXISTS orders (
-    order_id INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS Orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
-    order_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    total_amount DECIMAL(10,2) NOT NULL,
-    status VARCHAR(20) DEFAULT 'Pending',
-    PRIMARY KEY (order_id),
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
-);
+    order_date DATE NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+) ENGINE=InnoDB;
 
--- Order details table
-CREATE TABLE IF NOT EXISTS order_details (
-    order_detail_id INT NOT NULL AUTO_INCREMENT,
+-- Order_Details table
+CREATE TABLE IF NOT EXISTS Order_Details (
+    orderdetailid INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
     book_id INT NOT NULL,
-    quantity INT NOT NULL,
-    unit_price DECIMAL(10,2) NOT NULL,
-    PRIMARY KEY (order_detail_id),
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (book_id) REFERENCES books(book_id)
-);
+    quantity DOUBLE NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+) ENGINE=InnoDB;
