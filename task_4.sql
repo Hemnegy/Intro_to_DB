@@ -1,13 +1,16 @@
--- Script to show books table structure without using DESCRIBE/EXPLAIN
+
+
+
+    -- Script to display books table structure without prohibited keywords
 SELECT 
     COLUMN_NAME AS 'Field',
     COLUMN_TYPE AS 'Type',
-    IS_NULLABLE AS 'Null',
+    CASE WHEN IS_NULLABLE = 'YES' THEN 'YES' ELSE 'NO' END AS 'Null',
     COLUMN_KEY AS 'Key',
     COLUMN_DEFAULT AS 'Default',
     EXTRA AS 'Extra'
 FROM 
-    INFORMATION_SCHEMA.COLUMNS
+    INFORMATION_SCHEMA.COLUMNS 
 WHERE 
     TABLE_SCHEMA = DATABASE() 
     AND TABLE_NAME = 'books'
