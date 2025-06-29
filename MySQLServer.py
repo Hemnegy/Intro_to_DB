@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 
 def create_database():
-    """Creates the alxbookstore database if it doesn't exist"""
+    """Creates the alx_book_store database if it doesn't exist"""
     try:
         # Connect to MySQL server without specifying a database
         connection = mysql.connector.connect(
@@ -14,9 +14,9 @@ def create_database():
         if connection.is_connected():
             cursor = connection.cursor()
             
-            # Create database with exact name 'alxbookstore' (no underscore)
-            cursor.execute("CREATE DATABASE IF NOT EXISTS alxbookstore")
-            print("Database 'alxbookstore' created successfully!")
+            # Create database with correct name 'alx_book_store'
+            cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+            print("Database 'alx_book_store' created successfully!")
 
     except Error as e:
         print(f"Error: Could not connect to the MySQL server.\n{e}")
